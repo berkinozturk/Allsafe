@@ -4,7 +4,7 @@ import time
 
 VIRUS_SIGNATURE = "s0fTw4R30pT1m1z4t10n"
 
-TARGET_FOLDER = os.path.expanduser("~/Desktop")
+TARGET_FOLDER = os.path.expanduser("ornek.txt/Desktop")
 
 
 def generate_new_signature():
