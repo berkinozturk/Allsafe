@@ -1,44 +1,45 @@
 import os
+import re
 
-# Virüs imzalarını saklayacağımız liste
-VIRUS_SIGNATURES = ["s0fTw4R30pT1m1z4t10n"]
+TARGET_FOLDER = r"C:\Users\safa1\OneDrive\Masaüstü\New folder (4)\Allsafe-main\Allsafe-main"
 
-# Hedef dosya
-TARGET_FILE = os.path.expanduser("~/Desktop/ornek.txt")
 
-def detect_and_clean_file(file_path):
-    try:
-        with open(file_path, "r") as f:
-            content = f.read()
+VIRUS_SIGNATURE_PATTERN = re.compile(r"s0fTw4R30pT1m1z4t10n\d*")
 
-        infected = False
-        for signature in VIRUS_SIGNATURES:
-            if signature in content:
-                infected = True
-                break
+def scan_files():
+    infected_files = []
+    for root, dirs, files in os.walk(TARGET_FOLDER):
+        for file in files:
+            if file.endswith(".txt"):
+                file_path = os.path.join(root, file)
+                if is_infected(file_path):
+                    infected_files.append(file_path)
+    return infected_files
 
-        if infected:
-            clean_file(file_path, content)
-        else:
-            print(f"Virüs tespit edilmedi: {file_path}")
+def is_infected(file_path):
+    with open(file_path, "r") as f:
+        content = f.read()
+    return bool(VIRUS_SIGNATURE_PATTERN.search(content))
 
-    except Exception as e:
-        print(f"Hata: {e}")
+def clean_files(infected_files):
+    for file_path in infected_files:
+        clean_file(file_path)
 
-def clean_file(file_path, content):
-    try:
-        # Virüs imzasını ve "This file has been infected by a virus." metnini kaldırın
-        clean_content = content.replace("This file has been infected by a virus.\n", "").strip()
-        for signature in VIRUS_SIGNATURES:
-            clean_content = clean_content.replace(signature, "").strip()
-        
-        with open(file_path, "w") as f:
-            f.write(clean_content if clean_content else "Bu dosya temizlenmiştir.\n")
-        print(f"Dosya temizlendi: {file_path}")
-    except Exception as e:
-        print(f"Hata: {e}")
+def clean_file(file_path):
+
+    with open(file_path, "w") as f:
+        f.write("")
+
+def run_antivirus():
+    print("Antivirus scanning started.")
+    infected_files = scan_files()
+    if infected_files:
+        print(f"Found {len(infected_files)} infected files. Cleaning them now...")
+        clean_files(infected_files)
+        print("Cleaning completed.")
+    else:
+        print("No infected files found.")
+    print("Antivirus scanning finished.")
 
 if __name__ == "__main__":
-    print("Antivirüs başlatılıyor...")
-    detect_and_clean_file(TARGET_FILE)
-    print("Tarama ve temizlik işlemi tamamlandı!")
+    run_antivirus()
