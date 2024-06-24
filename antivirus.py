@@ -47,17 +47,18 @@ import os
 import re
 
 TARGET_FOLDER = os.path.expanduser("~/Desktop")
+SIGNATURES_FILE = "./virus_siganature.txt"  # Virüs imzaları dosyasının adı
 
-# Virüs imzaları listesi
-VIRUS_SIGNATURES = [
-    r"s0fTw4R30pT1m1z4t10n\d*",
-    r"malware_pattern_1",
-    r"another_malicious_code_pattern",
-    r"example_virus_signature_123",
-    r"dangerous_code_456",
-    r"s0fTw4R30pT1m1z4t10n1719165680",
-    # Diğer virüs imzalarını buraya ekleyin
-]
+def load_virus_signatures(file_path):
+    virus_signatures = []
+    try:
+        with open(file_path, "r") as file:
+            for line in file:
+                signature = line.strip()  # Satırdan boşlukları temizleyerek imzayı al
+                virus_signatures.append(signature)
+    except FileNotFoundError:
+        print(f"Hata: '{file_path}' dosyası bulunamadı.")
+    return virus_signatures
 
 def scan_files():
     infected_files = []
@@ -72,7 +73,7 @@ def scan_files():
 def is_infected(file_path):
     with open(file_path, "r") as f:
         content = f.read()
-    for signature in VIRUS_SIGNATURES:
+    for signature in SIGNATURES_FILE:
         if re.search(signature, content):
             return True
     return False
@@ -87,6 +88,7 @@ def clean_file(file_path):
 
 def run_antivirus():
     print("Antivirus scanning started.")
+    virus_signatures = load_virus_signatures(SIGNATURES_FILE)
     infected_files = scan_files()
     if infected_files:
         print(f"Found {len(infected_files)} infected files. Cleaning them now...")
