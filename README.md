@@ -12,9 +12,6 @@ Allsafe is a software project designed to handle both virus creation and antivir
 - [Installation](#installation)
 - [Usage](#usage)
 - [Files](#files)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
 
 ## About
 
