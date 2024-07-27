@@ -2,6 +2,9 @@
 
 Allsafe is a software project designed to handle both virus creation and antivirus detection. This README provides an overview of the project structure and its main components.
 
+![Allsafe](https://png.pngtree.com/png-vector/20191121/ourmid/pngtree-shield-with-a-check-mark-safe-and-protect-logo-on-white-png-image_1870454.jpg)
+
+
 ## Table of Contents
 
 - [About](#about)
